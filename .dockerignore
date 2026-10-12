@@ -1,0 +1,4 @@
+.git
+.github
+graft
+*_test.go

@@ -1,0 +1,12 @@
+{
+  "lastQuery": "what does ci do in this project",
+  "perAgentQuery": {},
+  "graftReads": 0,
+  "sourceReads": 0,
+  "savedTokens": 0,
+  "injectedPointers": [],
+  "nudges": 0,
+  "inputCostMicros": 234889,
+  "inputTokensBilled": 704890,
+  "lastBillingUuid": "868a6bd0-ccda-4540-a894-b446f9286c04"
+}

@@ -26,7 +26,7 @@ func jobKey(id string) string { return "job: " + id }
 
 func (q *Queue) Enqueue(ctx context.Context, id, url string) error {
 	pipe := q.rdb.TxPipeline()
-	pipe.HSet(ctx, jobKey(id), map[string]any{"url": url, "status": "queued", "attemtps": 0})
+	pipe.HSet(ctx, jobKey(id), map[string]any{"url": url, "status": "queued", "attempts": 0})
 	pipe.LPush(ctx, keyPending, id)
 	_, err := pipe.Exec(ctx)
 
@@ -146,7 +146,7 @@ func (q *Queue) ReportDepth(ctx context.Context) {
 		pipe := q.rdb.TxPipeline()
 		pending := pipe.LLen(ctx, keyPending)
 		processing := pipe.LLen(ctx, keyProcessing)
-		delayed := pipe.LLen(ctx, keyDelayed)
+		delayed := pipe.ZCard(ctx, keyDelayed)
 		dead := pipe.LLen(ctx, keyDead)
 		if _, err := pipe.Exec(ctx); err == nil {
 			queueDepth.WithLabelValues("pending").Set(float64(pending.Val()))
